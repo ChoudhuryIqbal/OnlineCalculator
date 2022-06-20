@@ -17,21 +17,20 @@ function multiply(a, b) {
 }
 
 function operator(operation, firstNum, secondNum) {
-    let result;
-    if (operation == "+") {
-        result = add(firstNum, secondNum);
-        console.log(result)
 
+    if (operation == "+") {
+        const resultAdd = add(firstNum, secondNum)
+        return resultAdd;
     } else if (operation == '-') {
-        result = subtract(firstNum, secondNum);
-        console.log(result)
+        const resutlSub = subtract(firstNum, secondNum)
+        return resutlSub;
     } else if (operation == "/") {
-        result = divide(firstNum, secondNum)
-        console.log(result)
+        const resultDivide = divide(firstNum, secondNum)
+        return resultDivide;
     } else if (operation == "*") {
-        result = multiply(firstNum, secondNum)
-        console.log(result)
+        const resultMultiply = multiply(firstNum, secondNum)
+        return resultMultiply;
     } else {
-        console.log("Something is wrong ")
+        return "Something is wrong ";
     }
 }
