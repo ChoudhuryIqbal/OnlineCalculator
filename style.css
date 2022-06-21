@@ -64,7 +64,7 @@ body {
 .number:hover,
 .operator:hover,
 .clear:hover {
-    background-color: #c0c0c0;
+    background-color: rgb(153, 153, 214);
 }
 
 #equal {
@@ -72,5 +72,5 @@ body {
 }
 
 #equal:hover {
-    background-color: rgb(118, 84, 15);
+    background-color: rgb(153, 153, 214);
 }
