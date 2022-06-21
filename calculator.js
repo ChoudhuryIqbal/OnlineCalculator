@@ -1,3 +1,4 @@
+const audio = new Audio('sound/buttonSound.mp3')
 const input = document.querySelector('.userInput');
 const result = document.querySelector('.output');
 const numbers = document.querySelectorAll('.number');
@@ -15,12 +16,14 @@ numbers.forEach(number => {
 
     number.addEventListener("click", e => {
         if (operatorName == "") {
+            audio.play();
             firstNum += e.target.innerText;
             displayValue = firstNum;
             input.innerHTML = displayValue;
             console.log(firstNum)
         } else {
             if (isEqualClicked) {
+                audio.play()
                 secondNum = "";
                 operatorName = "";
                 isEqualClicked = false;
@@ -30,6 +33,7 @@ numbers.forEach(number => {
                 input.innerHTML = displayValue;
 
             } else {
+                audio.play()
                 secondNum += e.target.innerText;
                 displayValue = firstNum + operatorName + secondNum;
                 input.innerHTML = displayValue;
@@ -42,6 +46,7 @@ numbers.forEach(number => {
 
 operators.forEach(op => {
     op.addEventListener("click", e => {
+        audio.play();
         operatorName = e.target.innerText;
         displayValue += operatorName;
         input.innerHTML = displayValue;
@@ -51,13 +56,14 @@ operators.forEach(op => {
 
 equalBtn.addEventListener("click", e => {
     isEqualClicked = true;
+    audio.play()
     let calculatedResult = operator(operatorName, firstNum, secondNum);
     result.innerHTML = calculatedResult;
 
 })
 
 clear.addEventListener("click", e => {
-
+    audio.play()
     let displayValue = "";
     firstNum = "";
     secondNum = "";
@@ -78,6 +84,12 @@ function subtract(a, b) {
     return a - b;
 
 }
+
+//const button = document.querySelector('sound\buttonSound.mp3')
+
+/* button.addEventListener('click', (e) => {
+    audio.play()
+}) */
 
 function divide(a, b) {
     return a / b;
