@@ -11,6 +11,7 @@ let firstNum = "";
 let secondNum = "";
 let operatorName = "";
 let isEqualClicked = false;
+let operatorCount = 0;
 
 numbers.forEach(number => {
 
@@ -28,7 +29,9 @@ numbers.forEach(number => {
                 operatorName = "";
                 isEqualClicked = false;
                 result.innerHTML = "0";
+
                 firstNum = e.target.innerText;
+
                 displayValue = firstNum;
                 input.innerHTML = displayValue;
 
@@ -46,11 +49,20 @@ numbers.forEach(number => {
 
 operators.forEach(op => {
     op.addEventListener("click", e => {
+
         audio.play();
         operatorName = e.target.innerText;
         displayValue += operatorName;
         input.innerHTML = displayValue;
         console.log(operatorName)
+
+        /*     operatorCount++;
+
+            if (operatorCount > 1) {
+                firstNum = operator(operatorName, firstNum, secondNum);
+                secondNum = "";
+                console.log(firstNum);
+            } */
     })
 })
 
