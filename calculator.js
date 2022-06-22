@@ -12,10 +12,10 @@ let secondNum = "";
 let operatorName = "";
 let isEqualClicked = false;
 let operatorCount = 0;
-let placeHolder = "";
+let hasRepeatOperator = false;
 
 numbers.forEach(number => {
-
+    hasRepeatOperator = false;
     number.addEventListener("click", e => {
         if (operatorName == "" && !isEqualClicked) {
             audio.play();
@@ -60,30 +60,42 @@ numbers.forEach(number => {
 operators.forEach(op => {
     op.addEventListener("click", e => {
 
-        audio.play();
 
 
-        operatorCount++;
 
-        if (operatorCount > 1) {
-            firstNum = operator(operatorName, firstNum, secondNum);
-            operatorName = e.target.innerText;
-            displayValue += operatorName;
-            input.innerHTML = displayValue;
-            console.log(operatorName)
-            secondNum = "";
-            console.log(firstNum);
+        if (firstNum == "") {
+            // nothing happens
+        } else if (hasRepeatOperator) {
+            //nothing happens
+
         } else {
-            operatorName = e.target.innerText;
-            displayValue += operatorName;
-            input.innerHTML = displayValue;
-            isEqualClicked = false;
-            console.log(operatorName)
+            hasRepeatOperator = true;
+            if (operatorCount > 1) {
+                operatorCount++;
+                audio.play();
+                firstNum = operator(operatorName, firstNum, secondNum);
+                operatorName = e.target.innerText;
+                displayValue += operatorName;
+                input.innerHTML = displayValue;
+                console.log(operatorName)
+                secondNum = "";
+                console.log(firstNum);
+            } else {
+                audio.play();
+                operatorName = e.target.innerText;
+                displayValue += operatorName;
+                input.innerHTML = displayValue;
+                isEqualClicked = false;
+                console.log(operatorName)
+            }
         }
+
+
     })
 })
 
 equalBtn.addEventListener("click", e => {
+    hasRepeatOperator = false;
     if (firstNum == "" || secondNum == "" || operatorName == "") {
         //nothing happens
     } else {
@@ -110,6 +122,7 @@ clear.addEventListener("click", e => {
     isEqualClicked = false;
     result.innerHTML = "0";
     input.innerHTML = "";
+    hasRepeatOperator = false;
 })
 
 
