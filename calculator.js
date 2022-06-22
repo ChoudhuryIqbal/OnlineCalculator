@@ -32,7 +32,7 @@ numbers.forEach(number => {
                 operatorName = "";
                 result.innerHTML = "0";
 
-                firstNum = e.target.innerText;
+                firstNum += e.target.innerText;
 
                 displayValue = firstNum;
                 input.innerHTML = displayValue;
@@ -84,15 +84,20 @@ operators.forEach(op => {
 })
 
 equalBtn.addEventListener("click", e => {
-    isEqualClicked = true;
-    audio.play()
-    let calculatedResult = operator(operatorName, firstNum, secondNum);
-    result.innerHTML = calculatedResult;
+    if (firstNum == "" || secondNum == "" || operatorName == "") {
+        //nothing happens
+    } else {
+        isEqualClicked = true;
+        audio.play()
+        let calculatedResult = operator(operatorName, firstNum, secondNum);
+        result.innerHTML = calculatedResult;
 
-    firstNum = "";
-    secondNum = "";
-    operatorName = "";
-    operatorCount = 0;
+        firstNum = "";
+        secondNum = "";
+        operatorName = "";
+        operatorCount = 0;
+    }
+
 
 })
 
@@ -102,7 +107,7 @@ clear.addEventListener("click", e => {
     firstNum = "";
     secondNum = "";
     operatorName = "";
-    // isEqualClicked = false;
+    isEqualClicked = false;
     result.innerHTML = "0";
     input.innerHTML = "";
 })
@@ -144,6 +149,9 @@ function operator(operation, firstNum, secondNum) {
         console.log(resultSub)
         return resultSub;
     } else if (operation == "÷") {
+        if (secondNum == 0) {
+            return "Error"
+        }
         const resultDivide = divide(firstNum, secondNum)
         console.log(resultDivide)
         return resultDivide;
