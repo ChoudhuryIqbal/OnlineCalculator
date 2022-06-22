@@ -12,22 +12,24 @@ let secondNum = "";
 let operatorName = "";
 let isEqualClicked = false;
 let operatorCount = 0;
+let placeHolder = "";
 
 numbers.forEach(number => {
 
     number.addEventListener("click", e => {
-        if (operatorName == "") {
+        if (operatorName == "" && !isEqualClicked) {
             audio.play();
             firstNum += e.target.innerText;
             displayValue = firstNum;
             input.innerHTML = displayValue;
+            isEqualClicked = false;
             console.log(firstNum)
         } else {
             if (isEqualClicked) {
+
                 audio.play()
                 secondNum = "";
                 operatorName = "";
-                isEqualClicked = false;
                 result.innerHTML = "0";
 
                 firstNum = e.target.innerText;
@@ -37,10 +39,18 @@ numbers.forEach(number => {
 
             } else {
                 audio.play()
-                secondNum += e.target.innerText;
-                displayValue = firstNum + operatorName + secondNum;
-                input.innerHTML = displayValue;
-                console.log(secondNum)
+                if (operatorCount > 1) {
+                    secondNum += e.target.innerText;
+                    displayValue += secondNum;
+                    input.innerHTML = displayValue;
+                    console.log(secondNum)
+                } else {
+                    secondNum += e.target.innerText;
+                    displayValue = firstNum + operatorName + secondNum;
+                    input.innerHTML = displayValue;
+                    console.log(secondNum)
+                }
+
             }
 
         }
@@ -51,18 +61,25 @@ operators.forEach(op => {
     op.addEventListener("click", e => {
 
         audio.play();
-        operatorName = e.target.innerText;
-        displayValue += operatorName;
-        input.innerHTML = displayValue;
-        console.log(operatorName)
 
-        /*     operatorCount++;
 
-            if (operatorCount > 1) {
-                firstNum = operator(operatorName, firstNum, secondNum);
-                secondNum = "";
-                console.log(firstNum);
-            } */
+        operatorCount++;
+
+        if (operatorCount > 1) {
+            firstNum = operator(operatorName, firstNum, secondNum);
+            operatorName = e.target.innerText;
+            displayValue += operatorName;
+            input.innerHTML = displayValue;
+            console.log(operatorName)
+            secondNum = "";
+            console.log(firstNum);
+        } else {
+            operatorName = e.target.innerText;
+            displayValue += operatorName;
+            input.innerHTML = displayValue;
+            isEqualClicked = false;
+            console.log(operatorName)
+        }
     })
 })
 
@@ -71,6 +88,11 @@ equalBtn.addEventListener("click", e => {
     audio.play()
     let calculatedResult = operator(operatorName, firstNum, secondNum);
     result.innerHTML = calculatedResult;
+
+    firstNum = "";
+    secondNum = "";
+    operatorName = "";
+    operatorCount = 0;
 
 })
 
